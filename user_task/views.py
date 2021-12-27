@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import requests
-from .models import Users
+from .models import Users, Todos
 
 # Create your views here.
 
@@ -13,6 +13,6 @@ def get_users(request):
 
 
 def get_todos(request):
-    url = "https://jsonplaceholder.typicode.com/todos"
-    response = requests.request("GET", url)
-    todos_response = response.json()
+    todos = Todos()
+    counter_new, counter_total = todos.get_users_to_db()
+    return HttpResponse("{}/{}".format(counter_new, counter_total))

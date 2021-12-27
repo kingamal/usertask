@@ -60,3 +60,38 @@ class Users(models.Model):
             if self.save_response(self.data):
                 counter += 1
         return counter, len(self.data)
+
+
+class Todos(models.Model):
+    todos_id = models.IntegerField()
+    user_id = models.IntegerField(default=0)
+    title = models.TextField()
+    completed = models.CharField(max_length=64)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.todos_response = []
+        self.data = {}
+
+    def get_todos_from_api(self):
+        url = "https://jsonplaceholder.typicode.com/todos"
+        response = requests.request("GET", url)
+        self.todos_response = response.json()
+        return self.todos_response
+
+    def save_response_todos(self, data):
+        todos, created = Todos.objects.get_or_create(user_id=data['todos_id'], defaults=data)
+        todos.save()
+        return created
+
+    def get_users_to_db(self):
+        response = self.get_todos_from_api()
+        counter = 0
+        for i in response:
+            self.data['todos_id'] = i['id']
+            self.data['user_id'] = i['userId']
+            self.data['title'] = i['title']
+            self.data['completed'] = i['completed']
+            if self.save_response_todos(self.data):
+                counter += 1
+        return counter, len(self.data)
