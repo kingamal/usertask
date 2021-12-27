@@ -15,7 +15,7 @@ def get_users(request):
 
 def get_todos(request):
     todos = Todos()
-    counter_new, counter_total = todos.get_users_to_db()
+    counter_new, counter_total = todos.get_todos_to_db()
     return HttpResponse("{}/{}".format(counter_new, counter_total))
 
 

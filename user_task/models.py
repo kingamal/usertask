@@ -84,7 +84,7 @@ class Todos(models.Model):
         todos.save()
         return created
 
-    def get_users_to_db(self):
+    def get_todos_to_db(self):
         response = self.get_todos_from_api()
         counter = 0
         for i in response:
