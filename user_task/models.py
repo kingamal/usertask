@@ -59,7 +59,7 @@ class Users(models.Model):
             self.data['company_bs'] = i['company']['bs']
             if self.save_response(self.data):
                 counter += 1
-        return counter, len(self.data)
+        return counter, len(response)
 
 
 class Todos(models.Model):
@@ -94,4 +94,4 @@ class Todos(models.Model):
             self.data['completed'] = i['completed']
             if self.save_response_todos(self.data):
                 counter += 1
-        return counter, len(self.data)
+        return counter, len(response)

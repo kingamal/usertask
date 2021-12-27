@@ -6,4 +6,5 @@ from . import views
 urlpatterns = [
     path('download', views.get_users, name='getusers'),
     path('downloadtodos', views.get_todos, name='gettodos'),
+    path('user_task', views.csv_file, name='csvfile'),
 ]
